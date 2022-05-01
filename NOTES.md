@@ -5,13 +5,13 @@
 ## Trained models
 
 ESPnet model for Yoloxochitl Mixtec 
- - Huggingface Hub page
+ - Huggingface Hub page https://huggingface.co/espnet/ftshijt_espnet2_asr_yolo_mixtec_transformer
  - Model source code https://github.com/espnet/espnet/tree/master/egs/yoloxochitl_mixtec/asr1
  - Colab notebook to setup and apply the model https://colab.research.google.com/drive/1ieoW2b3ERydjaaWuhVPBP_v2QqqWsC1Q?usp=sharing
  
 Coqui model for Yoloxochitl Mixtec
  - Huggingface Hub page
- - Coqui page
+ - Coqui page https://coqui.ai/mixtec/jemeyer/v1.0.0
  - Colab notebook to setup and apply the model https://colab.research.google.com/drive/1b1SujEGC_F3XhvUCuUyZK_tyUkEaFZ7D?usp=sharing#scrollTo=6IvRFke4Ckpz
 
 Spanish ASR models
