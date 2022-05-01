@@ -42,7 +42,7 @@ def download(url, file_name):
         print(f"Found {file_name}. Skipping download...")
 
 
-def stt(audio: Tuple[int, np.array], model_name: str):
+def stt(audio: Tuple[int, np.array]):
     sample_rate, audio = audio
     use_scorer = False
 
@@ -80,7 +80,7 @@ iface = gr.Interface(
     outputs=gr.outputs.Textbox(label="Output"),
     title="Coqui STT Yoloxochitl Mixtec",
     theme="huggingface",
-    description="Speech-to-text demo for Yoloxochitl Mixtec, using the model trained by Josh Meyer on the corpus compiled by Rey Castillo and collaborators. This demo is based on the [Ukrainian STT demo](https://huggingface.co/spaces/robinhad/ukrainian-stt).",
+    description="Speech-to-text demo for Yoloxochitl Mixtec, using the model trained by Josh Meyer on [the corpus compiled by Rey Castillo and collaborators](https://www.openslr.org/89). This demo is based on the [Ukrainian STT demo](https://huggingface.co/spaces/robinhad/ukrainian-stt).",
 )
 
 download(model_link, model_name)
