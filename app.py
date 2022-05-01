@@ -77,7 +77,8 @@ iface = gr.Interface(
     outputs=gr.outputs.Textbox(label="Output"),
     title="Coqui STT Yoloxochitl Mixtec",
     theme="huggingface",
-    description="Speech-to-text demo for Yoloxochitl Mixtec, using the model trained by Josh Meyer on [the corpus compiled by Rey Castillo and collaborators](https://www.openslr.org/89). This demo is based on the [Ukrainian STT demo](https://huggingface.co/spaces/robinhad/ukrainian-stt).",
+    description="Prueba de dictado a texto para el mixteco de Yoloxochitl, usando [el modelo entrenado por Josh Meyer](https://coqui.ai/mixtec/jemeyer/v1.0.0/) con [los datos recopilados por Rey Castillo y sus colaboradoes](https://www.openslr.org/89). Esta prueba es basada en la de [Ukraniano](https://huggingface.co/spaces/robinhad/ukrainian-stt). \n\n"
+                "Speech-to-text demo for Yoloxochitl Mixtec, using [the model trained by Josh Meyer](https://coqui.ai/mixtec/jemeyer/v1.0.0/) on [the corpus compiled by Rey Castillo and collaborators](https://www.openslr.org/89). This demo is based on the [Ukrainian STT demo](https://huggingface.co/spaces/robinhad/ukrainian-stt).",
 )
 
 download(model_link, model_name)
