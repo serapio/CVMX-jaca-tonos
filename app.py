@@ -46,9 +46,6 @@ def stt(audio: Tuple[int, np.array]):
     sample_rate, audio = audio
     use_scorer = False
 
-    if sample_rate != 16000:
-        raise ValueError("Incorrect sample rate.")
-
     recognized_result = client(audio, sample_rate, use_scorer)
 
     return recognized_result
