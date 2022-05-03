@@ -23,13 +23,8 @@ model_link = f"{storage_url}/{model_name}"
 
 def client(audio_data: np.array, sample_rate: int, use_scorer=False):
     output_audio = _convert_audio(audio_data, sample_rate)
-
-    out_prob, score, index, text_lab = lang_classifier.classify_batch(
-        lang_classifier.audio_normalizer(
-            torchaudio.load(output_audio), 
-            sample_rate
-        )
-    )
+    waveform, _ = torchaudio.load(output_audio)
+    out_prob, score, index, text_lab = lang_classifier.classify_batch(waveform)
 
     fin = wave.open(output_audio, 'rb')
     audio = np.frombuffer(fin.readframes(fin.getnframes()), np.int16)
