@@ -25,7 +25,7 @@ def client(audio_data: np.array, sample_rate: int, use_scorer=False):
     output_audio = _convert_audio(audio_data, sample_rate)
 
     out_prob, score, index, text_lab = lang_classifier.classify_batch(
-        lang_classifier.normalizer(output_audio.getvalue(), sample_rate)
+        lang_classifier.audio_normalizer(output_audio.getvalue(), sample_rate)
     )
 
     fin = wave.open(output_audio, 'rb')
