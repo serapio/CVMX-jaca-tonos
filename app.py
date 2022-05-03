@@ -8,8 +8,14 @@ import requests
 from os.path import exists
 from stt import Model
 
+import torchaudio
+from speechbrain.pretrained import EncoderClassifier
 
-# download model
+# initialize language ID model
+lang_classifier = EncoderClassifier.from_hparams(source="speechbrain/lang-id-commonlanguage_ecapa", savedir="pretrained_models/lang-id-commonlanguage_ecapa")
+
+
+# download STT model
 storage_url = "https://coqui.gateway.scarf.sh/mixtec/jemeyer/v1.0.0"
 model_name = "model.tflite"
 model_link = f"{storage_url}/{model_name}"
@@ -17,6 +23,8 @@ model_link = f"{storage_url}/{model_name}"
 
 def client(audio_data: np.array, sample_rate: int, use_scorer=False):
     output_audio = _convert_audio(audio_data, sample_rate)
+
+    out_prob, score, index, text_lab = lang_classifier.classify_file(output_audio)
 
     fin = wave.open(output_audio, 'rb')
     audio = np.frombuffer(fin.readframes(fin.getnframes()), np.int16)
@@ -29,7 +37,7 @@ def client(audio_data: np.array, sample_rate: int, use_scorer=False):
 
     result = ds.stt(audio)
 
-    return result
+    return f"{text_lab}: {result}"
 
 
 def download(url, file_name):
@@ -77,8 +85,15 @@ iface = gr.Interface(
     outputs=gr.outputs.Textbox(label="Output"),
     title="Coqui STT Yoloxochitl Mixtec",
     theme="huggingface",
-    description="Prueba de dictado a texto para el mixteco de Yoloxochitl, usando [el modelo entrenado por Josh Meyer](https://coqui.ai/mixtec/jemeyer/v1.0.0/) con [los datos recopilados por Rey Castillo y sus colaboradoes](https://www.openslr.org/89). Esta prueba es basada en la de [Ukraniano](https://huggingface.co/spaces/robinhad/ukrainian-stt). \n\n"
-                "Speech-to-text demo for Yoloxochitl Mixtec, using [the model trained by Josh Meyer](https://coqui.ai/mixtec/jemeyer/v1.0.0/) on [the corpus compiled by Rey Castillo and collaborators](https://www.openslr.org/89). This demo is based on the [Ukrainian STT demo](https://huggingface.co/spaces/robinhad/ukrainian-stt).",
+    description="Prueba de dictado a texto para el mixteco de Yoloxochitl,"
+                " usando [el modelo entrenado por Josh Meyer](https://coqui.ai/mixtec/jemeyer/v1.0.0/)"
+                " con [los datos recopilados por Rey Castillo y sus colaboradores](https://www.openslr.org/89)."
+                " Esta prueba es basada en la de [Ukraniano](https://huggingface.co/spaces/robinhad/ukrainian-stt)."
+                " \n\n"
+                "Speech-to-text demo for Yoloxochitl Mixtec,"
+                " using [the model trained by Josh Meyer](https://coqui.ai/mixtec/jemeyer/v1.0.0/)"
+                " on [the corpus compiled by Rey Castillo and collaborators](https://www.openslr.org/89)."
+                " This demo is based on the [Ukrainian STT demo](https://huggingface.co/spaces/robinhad/ukrainian-stt).",
 )
 
 download(model_link, model_name)
