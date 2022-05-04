@@ -9,6 +9,8 @@ from os.path import exists
 from stt import Model
 
 import torch
+from transformers import AutoModelForCTC, Wav2Vec2Processor
+
 import torchaudio
 from speechbrain.pretrained import EncoderClassifier
 
