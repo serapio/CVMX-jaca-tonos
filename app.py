@@ -125,6 +125,5 @@ iface = gr.Interface(
                 " This demo is based on the [Ukrainian STT demo](https://huggingface.co/spaces/robinhad/ukrainian-stt).",
 )
 
-STT_MODELS = {lang: load_models(lang) for lang in ("inglés", "español")}
 
 iface.launch()
