@@ -10,7 +10,7 @@ from stt import Model
 
 import torch
 from transformers import pipeline
-
+import librosa
 import torchaudio
 from speechbrain.pretrained import EncoderClassifier
 
@@ -43,20 +43,24 @@ def client(audio_data: np.array, sample_rate: int, default_lang: str):
 
     output_audio.seek(0)
     fin = wave.open(output_audio, 'rb')
-    audio = np.frombuffer(fin.readframes(fin.getnframes()), np.int16)
+    coqui_audio = np.frombuffer(fin.readframes(fin.getnframes()), np.int16)
+
+    output_audio.seek(0)
+    hf_audio, _ = librosa.load(output_audio)
 
     fin.close()
     print(default_lang, text_lab)
 
     if text_lab == 'Spanish':
         text_lab = 'español'
+
         asr_pipeline = STT_MODELS['español']
-        result = asr_pipeline(audio, chunk_length_s=5, stride_length_s=1)['text']
+        result = asr_pipeline(hf_audio, chunk_length_s=5, stride_length_s=1)['text']
 
     else:
         text_lab = default_lang
         ds = STT_MODELS[default_lang]
-        result = ds.stt(audio)
+        result = ds.stt(coqui_audio)
 
     return f"{text_lab}: {result}"
 

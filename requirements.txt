@@ -4,3 +4,4 @@ pydub==0.25.1
 speechbrain==0.5.10
 torchaudio
 transformers
+librosa
