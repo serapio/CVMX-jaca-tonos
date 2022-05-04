@@ -47,6 +47,8 @@ def client(audio_data: np.array, sample_rate: int, default_lang: str):
     audio = np.frombuffer(fin.readframes(fin.getnframes()), np.int16)
 
     fin.close()
+    print(STT_MODELS)
+    print(default_lang, text_lab)
 
     if text_lab == 'Spanish':
         processor, model = STT_MODELS['español']
