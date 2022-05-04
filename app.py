@@ -123,7 +123,7 @@ iface = gr.Interface(
             ["mixteco", "mixteco1-Yolox_BotFl_CTB501-FEF537-EGS503_40202-Acanthaceae-Ruellia_2017-01-05-h.wav"],
             ["mixteco", "mixteco2-Yolox_BotFl_CTB501-FEF537-EGS503_40202-Acanthaceae-Ruellia_2017-01-05-h.wav"],
             ["totonaco", "totonaco1-Zongo_Botan_Acanthaceae-Justicia-spicigera_SLC388-IPN389_2018-07-26-i.wav"],
-            ["totonaco", "totonaco2-Zongo_Botan_Acanthaceae-Justicia-spicigera_SLC388-IPN389_2018-07-26-i.wav"]]
+            ["totonaco", "totonaco2-Zongo_Botan_Acanthaceae-Justicia-spicigera_SLC388-IPN389_2018-07-26-i.wav"]],
     article="Chatino: Prueba de dictado a texto para el chatino de la sierra (Quiahije) "
                 " usando [el modelo entrenado por Bülent Özden](https://coqui.ai/chatino/bozden/v1.0.0)"
                 " con [los datos recopilados por Hilaria Cruz y sys colaboradores](https://gorilla.linguistlist.org/code/ctp/)"
