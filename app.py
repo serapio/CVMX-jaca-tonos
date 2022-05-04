@@ -9,7 +9,7 @@ from os.path import exists
 from stt import Model
 
 import torch
-from transformers import AutoModelForCTC, Wav2Vec2Processor
+from transformers import pipeline
 
 import torchaudio
 from speechbrain.pretrained import EncoderClassifier
