@@ -20,10 +20,9 @@ lang_classifier = EncoderClassifier.from_hparams(
     savedir="pretrained_models/lang-id-commonlanguage_ecapa"
 )
 
-@st.cache(hash_funcs={torch.nn.parameter.Parameter: lambda _: None})
 def load_hf_model(model_path="facebook/wav2vec2-large-robust-ft-swbd-300h"):
     processor = Wav2Vec2Processor.from_pretrained(model_path)
-    model = AutoModelForCTC.from_pretrained(model_path).to(device)
+    model = AutoModelForCTC.from_pretrained(model_path)
     return processor, model
 
 # download STT model
