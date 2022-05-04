@@ -34,7 +34,7 @@ model_info = {
     "inglés": ("facebook/wav2vec2-large-robust-ft-swbd-300h", "english_xlsr"),
 }
 
-STT_MODELS = {lang: load_hf_model(model_info[lang][0]) for lang in ("inglés", "español")}
+STT_MODELS = {lang: load_hf_model(model_info[lang][0]) for lang in ("español",)}
 
 
 def client(audio_data: np.array, sample_rate: int, default_lang: str):
@@ -117,6 +117,13 @@ iface = gr.Interface(
     outputs=gr.outputs.Textbox(label="Output"),
     title="Coqui STT de Chatino, Mixteco, y Totonaco",
     theme="huggingface",
+    description="Prueba de identificar frases de español en grabaciones de una lengua indígena, y prover el texto de cada una"
+    examples=[["mixteco", "espanol1-Yolox_BotFl_CTB501-FEF537-EGS503_40202-Acanthaceae-Ruellia_2017-01-05-h-espanol.wav"],
+            ["mixteco", "espanol2-Yolox_BotFl_CTB501-FEF537-EGS503_40202-Acanthaceae-Ruellia_2017-01-05-h.wav"],
+            ["mixteco", "mixteco1-Yolox_BotFl_CTB501-FEF537-EGS503_40202-Acanthaceae-Ruellia_2017-01-05-h.wav"],
+            ["mixteco", "mixteco2-Yolox_BotFl_CTB501-FEF537-EGS503_40202-Acanthaceae-Ruellia_2017-01-05-h.wav"],
+            ["totonaco", "totonaco1-Zongo_Botan_Acanthaceae-Justicia-spicigera_SLC388-IPN389_2018-07-26-i.wav"],
+            ["totonaco", "totonaco2-Zongo_Botan_Acanthaceae-Justicia-spicigera_SLC388-IPN389_2018-07-26-i.wav"]]
     article="Chatino: Prueba de dictado a texto para el chatino de la sierra (Quiahije) "
                 " usando [el modelo entrenado por Bülent Özden](https://coqui.ai/chatino/bozden/v1.0.0)"
                 " con [los datos recopilados por Hilaria Cruz y sys colaboradores](https://gorilla.linguistlist.org/code/ctp/)"
@@ -130,6 +137,7 @@ iface = gr.Interface(
                 " usando [el modelo entrenado por Bülent Özden](https://coqui.ai/totonac/bozden/v1.0.0)"
                 " con [los datos recopilados por Osbel López Francisco y Jonathan Amith](https://www.openslr.org/107)."
                 " \n\n"
+                "Los ejemplos vienen del proyecto [DEMCA](https://demca.mesolex.org/). "
                 " Esta prueba es basada en la de [Ukraniano](https://huggingface.co/spaces/robinhad/ukrainian-stt)."
 )
 
