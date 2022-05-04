@@ -55,9 +55,6 @@ def client(audio_data: np.array, sample_rate: int, default_lang: str):
 
 def load_models(language):
 
-    if language in STT_MODELS:
-        return STT_MODELS[language]
-
     model_path, file_name = model_info.get("language", ("", ""))
 
     if model_path.startswith('http'):
