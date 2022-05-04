@@ -64,7 +64,7 @@ def client(audio_data: np.array, sample_rate: int, default_lang: str):
 
 def load_coqui_models(language):
 
-    model_path, file_name = model_info.get("language", ("", ""))
+    model_path, file_name = model_info.get(language, ("", ""))
 
     if not exists(file_name):
         print(f"Downloading {model_path}")
