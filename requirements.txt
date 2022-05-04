@@ -3,3 +3,4 @@ STT==1.0.0
 pydub==0.25.1
 speechbrain==0.5.10
 torchaudio
+transformers
