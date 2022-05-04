@@ -20,6 +20,11 @@ lang_classifier = EncoderClassifier.from_hparams(
     savedir="pretrained_models/lang-id-commonlanguage_ecapa"
 )
 
+@st.cache(hash_funcs={torch.nn.parameter.Parameter: lambda _: None})
+def load_hf_model(model_path="facebook/wav2vec2-large-robust-ft-swbd-300h"):
+    processor = Wav2Vec2Processor.from_pretrained(model_path)
+    model = AutoModelForCTC.from_pretrained(model_path).to(device)
+    return processor, model
 
 # download STT model
 model_info = {
@@ -29,6 +34,8 @@ model_info = {
     "español": ("jonatasgrosman/wav2vec2-large-xlsr-53-spanish", "spanish_xlsr"),
     "inglés": ("facebook/wav2vec2-large-robust-ft-swbd-300h", "english_xlsr"),
 }
+
+STT_MODELS = {lang: load_hf_model(model_info[lang][0]) for lang in ("inglés", "español")}
 
 
 def client(audio_data: np.array, sample_rate: int, default_lang: str):
@@ -55,7 +62,7 @@ def client(audio_data: np.array, sample_rate: int, default_lang: str):
     return f"{text_lab}: {result}"
 
 
-def load_models(language):
+def load_coqui_models(language):
 
     model_path, file_name = model_info.get("language", ("", ""))
 
@@ -69,9 +76,8 @@ def load_models(language):
             print(f"Found {file_name}. Skipping download...")
         return Model(file_name)
 
-    processor = Wav2Vec2Processor.from_pretrained(model_path)
-    model = AutoModelForCTC.from_pretrained(model_path)
-    return processor, model
+for lang in ('mixteco', 'chatino', 'totonaco'):
+    STT_MODELS[lang] = load_coqui_models(lang)
 
 
 
