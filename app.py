@@ -21,9 +21,7 @@ lang_classifier = EncoderClassifier.from_hparams(
 )
 
 def load_hf_model(model_path="facebook/wav2vec2-large-robust-ft-swbd-300h"):
-    processor = Wav2Vec2Processor.from_pretrained(model_path)
-    model = AutoModelForCTC.from_pretrained(model_path)
-    return processor, model
+    return pipeline("automatic-speech-recognition", model=model_path)
 
 # download STT model
 model_info = {
@@ -52,10 +50,8 @@ def client(audio_data: np.array, sample_rate: int, default_lang: str):
 
     if text_lab == 'Spanish':
         text_lab = 'español'
-        processor, model = STT_MODELS['español']
-        inputs = processor(waveform)
-        logits = model(inputs.input_values, attention_mask=inputs.attention_mask).logits
-        result = processor.decode(torch.argmax(logits, dim=-1).cpu().tolist())
+        asr_pipeline = STT_MODELS['español']
+        result = asr_pipeline(waveform, chunk_length_s=5, stride_length_s=1)['text']
 
     else:
         text_lab = default_lang
