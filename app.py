@@ -66,9 +66,9 @@ def load_models(language):
     if model_path.startswith('http'):
         if not exists(file_name):
             print(f"Downloading {model_path}")
-                r = requests.get(model_path, allow_redirects=True)
-                with open(file_name, 'wb') as file:
-                    file.write(r.content)
+            r = requests.get(model_path, allow_redirects=True)
+            with open(file_name, 'wb') as file:
+                file.write(r.content)
         else:
             print(f"Found {file_name}. Skipping download...")
         return Model(file_name)
