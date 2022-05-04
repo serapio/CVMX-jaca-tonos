@@ -41,6 +41,7 @@ def client(audio_data: np.array, sample_rate: int, default_lang: str):
     output_audio = _convert_audio(audio_data, sample_rate)
     waveform, _ = torchaudio.load(output_audio)
     out_prob, score, index, text_lab = lang_classifier.classify_batch(waveform)
+    text_lab = text_lab[0]
 
     output_audio.seek(0)
     fin = wave.open(output_audio, 'rb')
@@ -50,12 +51,14 @@ def client(audio_data: np.array, sample_rate: int, default_lang: str):
     print(default_lang, text_lab)
 
     if text_lab == 'Spanish':
+        text_lab = 'español'
         processor, model = STT_MODELS['español']
         inputs = processor(waveform)
         logits = model(inputs.input_values, attention_mask=inputs.attention_mask).logits
         result = processor.decode(torch.argmax(logits, dim=-1).cpu().tolist())
 
     else:
+        text_lab = default_lang
         ds = STT_MODELS[default_lang]
         result = ds.stt(audio)
 
@@ -112,17 +115,22 @@ iface = gr.Interface(
         gr.inputs.Audio(type="numpy", label="Audio", optional=False),
     ],
     outputs=gr.outputs.Textbox(label="Output"),
-    title="Coqui STT Yoloxochitl Mixtec",
+    title="Coqui STT de Chatino, Mixteco, y Totonaco",
     theme="huggingface",
-    description="Prueba de dictado a texto para el mixteco de Yoloxochitl,"
+    article="Chatino: Prueba de dictado a texto para el chatino de la sierra (Quiahije) "
+                " usando [el modelo entrenado por Bülent Özden](https://coqui.ai/chatino/bozden/v1.0.0)"
+                " con [los datos recopilados por Hilaria Cruz y sys colaboradores](https://gorilla.linguistlist.org/code/ctp/)"
+                "\n\n"
+                "Mixteco: Prueba de dictado a texto para el mixteco de Yoloxochitl,"
                 " usando [el modelo entrenado por Josh Meyer](https://coqui.ai/mixtec/jemeyer/v1.0.0/)"
-                " con [los datos recopilados por Rey Castillo y sus colaboradores](https://www.openslr.org/89)."
+                " con [los datos recopilados por Rey Castillo, Jonathan Amith y sus colaboradores](https://www.openslr.org/89)."
                 " Esta prueba es basada en la de [Ukraniano](https://huggingface.co/spaces/robinhad/ukrainian-stt)."
                 " \n\n"
-                "Speech-to-text demo for Yoloxochitl Mixtec,"
-                " using [the model trained by Josh Meyer](https://coqui.ai/mixtec/jemeyer/v1.0.0/)"
-                " on [the corpus compiled by Rey Castillo and collaborators](https://www.openslr.org/89)."
-                " This demo is based on the [Ukrainian STT demo](https://huggingface.co/spaces/robinhad/ukrainian-stt).",
+                "Totonaco: Prueba de dictado a texto para el totonaco de la sierra,"
+                " usando [el modelo entrenado por Bülent Özden](https://coqui.ai/totonac/bozden/v1.0.0)"
+                " con [los datos recopilados por Osbel López Francisco y Jonathan Amith](https://www.openslr.org/107)."
+                " \n\n"
+                " Esta prueba es basada en la de [Ukraniano](https://huggingface.co/spaces/robinhad/ukrainian-stt)."
 )
 
 
