@@ -13,3 +13,4 @@ license: MIT
 
 # CVMX-jaca-tonos
 un proyecto de identificación de idiomas para el jacatón de Common Voice MX
+https://huggingface.co/spaces/CVMX-jaca-tonos/Identificar-lenguas-y-frases

@@ -51,7 +51,7 @@ def client(audio_data: np.array, sample_rate: int, default_lang: str):
     if text_lab == 'Spanish':
         text_lab = 'español'
         asr_pipeline = STT_MODELS['español']
-        result = asr_pipeline(waveform, chunk_length_s=5, stride_length_s=1)['text']
+        result = asr_pipeline(audio, chunk_length_s=5, stride_length_s=1)['text']
 
     else:
         text_lab = default_lang
