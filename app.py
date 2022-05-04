@@ -117,7 +117,7 @@ iface = gr.Interface(
     outputs=gr.outputs.Textbox(label="Output"),
     title="Coqui STT de Chatino, Mixteco, y Totonaco",
     theme="huggingface",
-    description="Prueba de identificar frases de español en grabaciones de una lengua indígena, y prover el texto de cada una"
+    description="Prueba de identificar frases de español en grabaciones de una lengua indígena, y prover el texto de cada una",
     examples=[["mixteco", "espanol1-Yolox_BotFl_CTB501-FEF537-EGS503_40202-Acanthaceae-Ruellia_2017-01-05-h-espanol.wav"],
             ["mixteco", "espanol2-Yolox_BotFl_CTB501-FEF537-EGS503_40202-Acanthaceae-Ruellia_2017-01-05-h.wav"],
             ["mixteco", "mixteco1-Yolox_BotFl_CTB501-FEF537-EGS503_40202-Acanthaceae-Ruellia_2017-01-05-h.wav"],
