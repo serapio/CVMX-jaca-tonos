@@ -47,7 +47,6 @@ def client(audio_data: np.array, sample_rate: int, default_lang: str):
     audio = np.frombuffer(fin.readframes(fin.getnframes()), np.int16)
 
     fin.close()
-    print(STT_MODELS)
     print(default_lang, text_lab)
 
     if text_lab == 'Spanish':
@@ -67,15 +66,14 @@ def load_coqui_models(language):
 
     model_path, file_name = model_info.get("language", ("", ""))
 
-    if model_path.startswith('http'):
-        if not exists(file_name):
-            print(f"Downloading {model_path}")
-            r = requests.get(model_path, allow_redirects=True)
-            with open(file_name, 'wb') as file:
-                file.write(r.content)
-        else:
-            print(f"Found {file_name}. Skipping download...")
-        return Model(file_name)
+    if not exists(file_name):
+        print(f"Downloading {model_path}")
+        r = requests.get(model_path, allow_redirects=True)
+        with open(file_name, 'wb') as file:
+            file.write(r.content)
+    else:
+        print(f"Found {file_name}. Skipping download...")
+    return Model(file_name)
 
 for lang in ('mixteco', 'chatino', 'totonaco'):
     STT_MODELS[lang] = load_coqui_models(lang)
