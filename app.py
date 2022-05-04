@@ -28,9 +28,6 @@ model_info = {
     "inglés": ("facebook/wav2vec2-large-robust-ft-swbd-300h", "english_xlsr"),
 }
 
-model_name = "model.tflite"
-model_link = f"{storage_url}/{model_name}"
-
 
 def client(audio_data: np.array, sample_rate: int, default_lang: str):
     output_audio = _convert_audio(audio_data, sample_rate)
